@@ -3,18 +3,18 @@ k3s_cluster:
   children:
     server:
       hosts:
-        192.168.254.90:
+        192.168.254.240:
     agent:
       hosts:
-        192.168.254.91:
-        192.168.254.92:
-        192.168.254.93:
+        192.168.254.240:
+        192.168.254.241:
+        192.168.254.242:
 
   # Required Vars
   vars:
     ansible_port: 22
-    ansible_user: vmuser
-    k3s_version: v1.34.1+k3s1
+    ansible_user: root
+    k3s_version: v1.35.1+k3s1
     # - openssl rand -base64 64
     # - pwgen -s 64 1
 
