@@ -16,6 +16,13 @@ spec:
             server.insecure: false
         server:
           replicas: 2
+          service:
+            type: ClusterIP
+          ingress:
+            enabled: true
+            ingressClassName: traefik
+            hosts:
+              - argocd.zeromnd.com
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
