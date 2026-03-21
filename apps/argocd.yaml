@@ -2,15 +2,32 @@ name: argocd
 project: default
 destination:
   namespace: argocd
-source:
-  repoURL: https://argoproj.github.io/argo-helm
-  chart: argo-cd
-  targetRevision: 7.7.10
-  helmValues: |
-    global:
-      domain: argocd.local
-    configs:
-      params:
-        server.insecure: true
-syncOptions:
-  - CreateNamespace=true
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argo-cd
+    targetRevision: 7.7.10
+    helm:
+      valuesObject:
+        global:
+          domain: argocd.local
+        configs:
+          params:
+            server.insecure: true
+        server:
+          ingress:
+            enabled: true
+            ingressClassName: traefik
+            hostname: argocd.local
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
