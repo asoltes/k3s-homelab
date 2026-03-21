@@ -12,7 +12,7 @@ spec:
   generators:
     - git:
         repoURL: https://github.com/asoltes/k3s-homelab
-        revision: main
+        revision: HEAD
         files:
           - path: apps/*.yaml
   template:
