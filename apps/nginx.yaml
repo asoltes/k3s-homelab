@@ -8,7 +8,7 @@ source:
   targetRevision: 22.6.8
   helmValues: |
     service:
-      type: LoadBalancer
+      type: ClusterIP
     ingress:
       enabled: true
       ingressClassName: traefik
