@@ -17,6 +17,10 @@ spec:
         configs:
           params:
             server.insecure: true
+        redis:
+          serviceAccount:
+            create: true
+            name: argocd-redis
         server:
           ingress:
             enabled: true
