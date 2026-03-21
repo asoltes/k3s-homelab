@@ -1,0 +1,10 @@
+name: cert-manager-issuers
+project: default
+destination:
+  namespace: cert-manager
+source:
+  repoURL: https://github.com/asoltes/k3s-homelab
+  path: helms/cert-manager
+  targetRevision: main
+syncOptions:
+  - CreateNamespace=true
