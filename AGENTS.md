@@ -91,4 +91,37 @@ git push origin main
 
 ---
 
+## Kubernetes Operations
+
+### Force Delete a Stuck Namespace
+
+When a namespace is stuck in `Terminating` state due to finalizers, follow these steps:
+
+**1. Remove the namespace finalizer:**
+```bash
+kubectl get namespace <ns> -o json | jq '.spec.finalizers = []' | kubectl replace --raw "/api/v1/namespaces/<ns>/finalize" -f -
+```
+
+**2. If CRD resources (e.g., ArgoCD Applications) still have finalizers, patch each one:**
+```bash
+for app in $(kubectl get <crd-resource> -n <ns> --no-headers -o custom-columns=":metadata.name"); do
+  kubectl patch <crd-resource> "$app" -n <ns> -p '{"metadata":{"finalizers":[]}}' --type=merge
+done
+```
+
+**Example — ArgoCD namespace cleanup:**
+```bash
+# Step 1: Remove namespace finalizer
+kubectl get namespace argocd -o json | jq '.spec.finalizers = []' | kubectl replace --raw "/api/v1/namespaces/argocd/finalize" -f -
+
+# Step 2: Remove finalizers from remaining ArgoCD Application resources
+for app in $(kubectl get applications.argoproj.io -n argocd --no-headers -o custom-columns=":metadata.name"); do
+  kubectl patch application.argoproj.io "$app" -n argocd -p '{"metadata":{"finalizers":[]}}' --type=merge
+done
+```
+
+> **Note:** After removing the namespace finalizer, CRD-owned resources with their own finalizers (`resources-finalizer.argocd.argoproj.io`) may also need to be patched before the namespace fully terminates.
+
+---
+
 *Last updated: March 21, 2026*

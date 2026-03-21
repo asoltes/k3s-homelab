@@ -5,7 +5,7 @@ destination:
 source:
   repoURL: https://sergiotocalini.github.io/helm-charts
   chart: sergiotocalini/ansible-semaphore
-  targetRevision: 1.2.0
+  targetRevision: v2.10.22
   helmValues: |
     replicaCount: 1
 syncOptions:
