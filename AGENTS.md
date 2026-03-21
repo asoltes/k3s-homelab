@@ -52,6 +52,43 @@ Claude Sonnet models provide:
 3. Monitor model usage and performance metrics
 4. Report any issues or unexpected behavior to your admin
 
+## Git Workflow
+
+### Branch Management
+
+**IMPORTANT**: The Copilot CLI should **NEVER** create branches. All changes must be committed directly to the `main` branch.
+
+### Commit Workflow
+
+When making changes, follow this workflow:
+
+1. **Make changes** to the required files
+2. **Stage changes**: `git add .` or `git add <specific-files>`
+3. **Commit changes**: `git commit -m "descriptive message"`
+4. **Request approval** from the user before pushing
+5. **Push to main**: `git push origin main` (only after user approval)
+
+### Example Workflow
+
+```bash
+# After making changes
+git add .
+git commit -m "feat: add new application configuration"
+
+# Ask user: "Ready to push to main?"
+# Wait for approval
+
+git push origin main
+```
+
+### Critical Rules
+
+- ❌ **NEVER** create a new branch
+- ❌ **NEVER** use `git checkout -b` or `git branch`
+- ✅ **ALWAYS** work directly on main
+- ✅ **ALWAYS** request approval before pushing
+- ✅ **ALWAYS** use clear, descriptive commit messages
+
 ---
 
 *Last updated: March 21, 2026*
