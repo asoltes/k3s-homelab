@@ -1,27 +1,14 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: nginx
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  project: default
-  source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: nginx
-    targetRevision: 18.2.4
-    helm:
-      valuesObject:
-        service:
-          type: ClusterIP
-        replicaCount: 2
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: nginx
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+name: nginx
+project: default
+destination:
+  namespace: nginx
+source:
+  repoURL: https://charts.bitnami.com/bitnami
+  chart: nginx
+  targetRevision: 18.2.4
+  helmValues: |
+    service:
+      type: ClusterIP
+    replicaCount: 2
+syncOptions:
+  - CreateNamespace=true
