@@ -3,12 +3,13 @@ project: default
 destination:
   namespace: nginx
 source:
-  repoURL: https://charts.bitnami.com/bitnami
-  chart: nginx
-  targetRevision: 18.2.4
+  repoURL: https://sergiotocalini.github.io/helm-charts
+  chart: sergiotocalini/ansible-semaphore
+  targetRevision: 1.2.0
   helmValues: |
-    service:
-      type: ClusterIP
-    replicaCount: 2
+    controller:
+      service:
+        type: ClusterIP
+      replicaCount: 2
 syncOptions:
   - CreateNamespace=true
