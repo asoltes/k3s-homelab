@@ -12,7 +12,7 @@ source:
     ingress:
       enabled: true
       ingressClassName: traefik
-      hostname: nginx.local
+      hostname: nginx.zeromnd.com
     replicaCount: 2
 syncOptions:
   - CreateNamespace=true
