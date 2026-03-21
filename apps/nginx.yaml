@@ -8,7 +8,11 @@ source:
   targetRevision: 22.6.8
   helmValues: |
     service:
-      type: ClusterIP
+      type: LoadBalancer
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      hostname: nginx.local
     replicaCount: 2
 syncOptions:
   - CreateNamespace=true
