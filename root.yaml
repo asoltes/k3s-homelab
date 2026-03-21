@@ -1,20 +1,54 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
   name: root
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: default
-  source:
-    repoURL: https://github.com/asoltes/k3s-homelab
-    targetRevision: main
-    path: apps
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: argocd
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+  goTemplate: true
+  goTemplateOptions:
+    - missingkey=error
+  generators:
+    - git:
+        repoURL: https://github.com/asoltes/k3s-homelab
+        revision: main
+        files:
+          - path: apps/*.yaml
+  template:
+    metadata:
+      name: "{{ .name }}"
+      namespace: argocd
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
+    spec:
+      project: "{{ .project }}"
+      source:
+        repoURL: "{{ .source.repoURL }}"
+        targetRevision: "{{ .source.targetRevision }}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{ .destination.namespace }}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+  templatePatch: |
+    spec:
+      source:
+        {{- if .source.chart }}
+        chart: {{ .source.chart }}
+        {{- end }}
+        {{- if .source.path }}
+        path: {{ .source.path }}
+        {{- end }}
+        {{- if .source.helmValues }}
+        helm:
+          values: |
+            {{- .source.helmValues | nindent 12 }}
+        {{- end }}
+      syncPolicy:
+        syncOptions:
+          {{- range .syncOptions }}
+          - {{ . }}
+          {{- end }}
