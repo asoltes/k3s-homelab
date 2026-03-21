@@ -1,15 +1,12 @@
-name: nginx
+name: semaphore
 project: default
 destination:
-  namespace: nginx
+  namespace: semaphore
 source:
   repoURL: https://sergiotocalini.github.io/helm-charts
   chart: sergiotocalini/ansible-semaphore
   targetRevision: 1.2.0
   helmValues: |
-    controller:
-      service:
-        type: ClusterIP
-      replicaCount: 2
+    replicaCount: 1
 syncOptions:
   - CreateNamespace=true

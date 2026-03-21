@@ -1,0 +1,14 @@
+name: nginx
+project: default
+destination:
+  namespace: nginx
+source:
+  repoURL: https://charts.bitnami.com/bitnami
+  chart: nginx
+  targetRevision: 18.2.8
+  helmValues: |
+    service:
+      type: ClusterIP
+    replicaCount: 2
+syncOptions:
+  - CreateNamespace=true
