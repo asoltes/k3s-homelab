@@ -1,1 +1,15 @@
-https://sergiotocalini.github.io/helm-charts
+name: nginx
+project: default
+destination:
+  namespace: nginx
+source:
+  repoURL: https://sergiotocalini.github.io/helm-charts
+  chart: sergiotocalini/ansible-semaphore
+  targetRevision: 1.2.0
+  helmValues: |
+    controller:
+      service:
+        type: ClusterIP
+      replicaCount: 2
+syncOptions:
+  - CreateNamespace=true
