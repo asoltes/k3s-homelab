@@ -8,7 +8,7 @@ metadata:
 spec:
   goTemplate: true
   goTemplateOptions:
-    - missingkey=error
+    - missingkey=zero
   generators:
     - git:
         repoURL: https://github.com/asoltes/k3s-homelab
