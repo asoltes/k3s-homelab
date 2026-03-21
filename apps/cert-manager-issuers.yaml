@@ -5,6 +5,6 @@ destination:
 source:
   repoURL: https://github.com/asoltes/k3s-homelab
   path: helms/cert-manager
-  targetRevision: main
+  targetRevision: HEAD
 syncOptions:
   - CreateNamespace=true
