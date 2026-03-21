@@ -19,5 +19,10 @@ source:
         ingressClassName: traefik
         hosts:
           - argocd.zeromnd.com
+    redis:
+      enabled: true
+      serviceAccount:
+        create: true
+        automountServiceAccountToken: true
 syncOptions:
   - CreateNamespace=true
