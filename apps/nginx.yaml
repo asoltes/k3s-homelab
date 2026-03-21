@@ -5,7 +5,7 @@ destination:
 source:
   repoURL: https://charts.bitnami.com/bitnami
   chart: nginx
-  targetRevision: 1.29.6
+  targetRevision: 22.6.8
   helmValues: |
     service:
       type: ClusterIP
