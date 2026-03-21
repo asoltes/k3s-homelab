@@ -11,13 +11,13 @@ source:
       domain: argo.andrestrek.com
     configs:
       params:
-        server.insecure: true
+        server.insecure: false
     server:
       ingress:
         enabled: true
         ingressClassName: traefik
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-prod
-        tls: true
+        tls: false
 syncOptions:
   - CreateNamespace=true
