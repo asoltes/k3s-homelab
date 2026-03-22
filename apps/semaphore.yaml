@@ -13,6 +13,7 @@ source:
       enabled: true
       ingressClassName: traefik
       annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
         external-dns.alpha.kubernetes.io/hostname: semaphore.zerok3s.com
       hosts:
         - host: semaphore.zerok3s.com
