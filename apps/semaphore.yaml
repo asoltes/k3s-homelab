@@ -14,9 +14,9 @@ source:
       ingressClassName: traefik
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
-        external-dns.alpha.kubernetes.io/hostname: semaphore.zerok3s.com
+        external-dns.alpha.kubernetes.io/hostname: runbooks.andrestrek.com
       hosts:
-        - host: semaphore.zerok3s.com
+        - host: runbooks.andrestrek.com
           paths:
             - path: /
               pathType: Prefix
