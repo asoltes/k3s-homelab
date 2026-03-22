@@ -9,22 +9,28 @@ source:
   helmValues: |
     provider:
       name: webhook
-      webhook:
-        image:
-          repository: ghcr.io/muhlba91/external-dns-provider-adguard
-          tag: latest
-        service:
-          port: 8888
+
+    extraArgs:
+      - --webhook-provider-url=http://localhost:8888
+
+    sidecars:
+      - name: adguard-webhook
+        image: ghcr.io/muhlba91/external-dns-provider-adguard:latest
+        ports:
+          - containerPort: 8888
+            name: webhook
+          - containerPort: 8080
+            name: http
         livenessProbe:
           httpGet:
             path: /healthz
-            port: 8080
+            port: http
           initialDelaySeconds: 10
           timeoutSeconds: 5
         readinessProbe:
           httpGet:
             path: /healthz
-            port: 8080
+            port: http
           initialDelaySeconds: 10
           timeoutSeconds: 5
         env:
