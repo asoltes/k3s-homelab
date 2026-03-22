@@ -12,10 +12,10 @@ source:
     ingress:
       enabled: true
       ingressClassName: traefik
-      hostname: nginx.andrestrek.com
+      hostname: nginx.zerok3s.com
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
-        external-dns.alpha.kubernetes.io/hostname: nginx.andrestrek.com
+        external-dns.alpha.kubernetes.io/hostname: nginx.zerok3s.com
     replicaCount: 2
 syncOptions:
   - CreateNamespace=true
