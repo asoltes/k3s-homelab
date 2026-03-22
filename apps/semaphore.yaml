@@ -12,6 +12,8 @@ source:
     ingress:
       enabled: true
       ingressClassName: traefik
+      annotations:
+        external-dns.alpha.kubernetes.io/hostname: semaphore.zeromnd.com
       hosts:
         - host: semaphore.zeromnd.com
           paths:
