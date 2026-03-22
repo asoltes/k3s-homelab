@@ -9,30 +9,10 @@ source:
   helmValues: |
     provider:
       name: webhook
-
-    extraArgs:
-      - --webhook-provider-url=http://localhost:8888
-
-    sidecars:
-      - name: adguard-webhook
-        image: ghcr.io/muhlba91/external-dns-provider-adguard:latest
-        ports:
-          - containerPort: 8888
-            name: webhook
-          - containerPort: 8080
-            name: http
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: http
-          initialDelaySeconds: 10
-          timeoutSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: /healthz
-            port: http
-          initialDelaySeconds: 10
-          timeoutSeconds: 5
+      webhook:
+        image:
+          repository: ghcr.io/muhlba91/external-dns-provider-adguard
+          tag: latest
         env:
           - name: ADGUARD_URL
             valueFrom:
@@ -53,5 +33,17 @@ source:
             value: debug
           - name: DRY_RUN
             value: "false"
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: "8080"
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: "8080"
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
 syncOptions:
   - CreateNamespace=true
