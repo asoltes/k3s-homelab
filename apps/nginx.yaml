@@ -12,9 +12,9 @@ source:
     ingress:
       enabled: true
       ingressClassName: traefik
-      hostname: nginx.zeromnd.com
+      hostname: nginx.zerok3s.com
       annotations:
-        external-dns.alpha.kubernetes.io/hostname: nginx.zeromnd.com
+        external-dns.alpha.kubernetes.io/hostname: nginx.zerok3s.com
     replicaCount: 2
 syncOptions:
   - CreateNamespace=true
