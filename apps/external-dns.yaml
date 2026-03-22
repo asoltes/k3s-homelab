@@ -9,6 +9,10 @@ source:
   helmValues: |
     provider:
       name: webhook
+      webhook:
+        image:
+          repository: ghcr.io/muhlba91/external-dns-provider-adguard
+          tag: latest
 
     extraArgs:
       - --webhook-provider-url=http://localhost:8888
