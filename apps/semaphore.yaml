@@ -1,5 +1,7 @@
 name: semaphore
 project: default
+annotations:
+  link.argocd.argoproj.io/external-link: https://runbooks.zerok3s.com
 destination:
   namespace: semaphore
 source:

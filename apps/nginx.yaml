@@ -1,5 +1,7 @@
 name: nginx
 project: default
+annotations:
+  link.argocd.argoproj.io/external-link: https://nginx.zerok3s.com
 destination:
   namespace: nginx
 source:
