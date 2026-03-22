@@ -20,7 +20,7 @@ source:
           paths:
             - path: /
               pathType: Prefix
-    replicaCount: 2
+    replicaCount: 1
     admin:
       create: true
       username: admin
