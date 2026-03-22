@@ -13,28 +13,18 @@ source:
         image:
           repository: ghcr.io/muhlba91/external-dns-provider-adguard
           tag: latest
-
-    extraArgs:
-      - --webhook-provider-url=http://localhost:8888
-
-    sidecars:
-      - name: adguard-webhook
-        image: ghcr.io/muhlba91/external-dns-provider-adguard:latest
-        ports:
-          - containerPort: 8888
-            name: webhook
-          - containerPort: 8080
-            name: http
+        service:
+          port: 8888
         livenessProbe:
           httpGet:
             path: /healthz
-            port: http
+            port: 8080
           initialDelaySeconds: 10
           timeoutSeconds: 5
         readinessProbe:
           httpGet:
             path: /healthz
-            port: http
+            port: 8080
           initialDelaySeconds: 10
           timeoutSeconds: 5
         env:
@@ -57,9 +47,5 @@ source:
             value: debug
           - name: DRY_RUN
             value: "false"
-          - name: SERVER_HOST
-            value: "0.0.0.0"
-          - name: SERVER_PORT
-            value: "8888"
 syncOptions:
   - CreateNamespace=true
